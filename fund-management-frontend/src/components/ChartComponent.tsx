@@ -17,9 +17,9 @@ interface DataPoint {
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
   const mm = String(date.getMonth() + 1).padStart(2, '0');
-  const yy = String(date.getFullYear()).slice(-2);
+  const yy = String(date.getFullYear());
   const dd = String(date.getDate()).padStart(2, '0');
-  return `${mm}-${yy}-${dd}`;
+  return `${mm}-${dd}-${yy}`;
 };
 
 const ChartComponent: React.FC<ChartComponentProps> = ({ url }) => {

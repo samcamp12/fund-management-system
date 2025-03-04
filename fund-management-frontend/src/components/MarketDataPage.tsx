@@ -17,8 +17,6 @@ const MarketDataPage: React.FC = () => {
   const fetchMarketData = async () => {
     setLoading(true);
     try {
-      // Replace the following with an actual API call to Alpha Vantage using your API key.
-      // For demonstration, we simulate data:
       const exchangeRatesData = { USD_EUR: 0.92, GBP_EUR: 1.17 };
       const euriborValue = 0.5;
       const stockDataFetched: MarketData[] = [
