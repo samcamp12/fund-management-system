@@ -1,32 +1,46 @@
 // src/components/MarketDataPage.tsx
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Button, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Container, Typography, Button, Paper } from '@mui/material';
+import { testMarketData } from '../constants/testData';
+import StockChartExample from './Charts/StockChart';
+import FxChart from './Charts/FxChart';
 
-interface MarketData {
-  symbol: string;
-  price: number;
-  change: number;
+export interface StockData {
+  date: string;
+  google: number;
+  apple: number;
+  amazon: number
+}
+
+export interface ExchangeRate {
+  date: string;
+  usdToEur: number;
 }
 
 const MarketDataPage: React.FC = () => {
   const [exchangeRates, setExchangeRates] = useState<any>(null);
-  const [euribor, setEuribor] = useState<number | null>(null);
-  const [stockData, setStockData] = useState<MarketData[]>([]);
+  const [stockData, setStockData] = useState<StockData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const fetchMarketData = async () => {
     setLoading(true);
     try {
-      const exchangeRatesData = { USD_EUR: 0.92, GBP_EUR: 1.17 };
-      const euriborValue = 0.5;
-      const stockDataFetched: MarketData[] = [
-        { symbol: 'AAPL', price: 150, change: 1.2 },
-        { symbol: 'GOOGL', price: 2800, change: -0.5 },
-      ];
-
-      setExchangeRates(exchangeRatesData);
-      setEuribor(euriborValue);
-      setStockData(stockDataFetched);
+      // const marketData = await getMarketData();
+      const marketData = testMarketData.sort((a, b) => a.date.localeCompare(b.date));
+      setExchangeRates(marketData.filter(x => x.usdToEur !== "").map(x => {
+        return {
+          date: x.date,
+          usdToEur: x.usdToEur,
+        }
+      }))
+      setStockData(marketData.filter(x => x.google !== "").map(x => {
+        return {
+          date: x.date,
+          google: parseFloat(x.google),
+          apple: parseFloat(x.apple),
+          amazon: parseFloat(x.amazon),
+        }
+      }))
     } catch (error) {
       console.error('Error fetching market data:', error);
     }
@@ -45,39 +59,11 @@ const MarketDataPage: React.FC = () => {
       </Button>
       <Paper style={{ marginTop: '2rem', padding: '1rem' }}>
         <Typography variant="h6">Exchange Rates</Typography>
-        {exchangeRates ? (
-          <div>
-            <Typography>USD to EUR: {exchangeRates.USD_EUR}</Typography>
-            <Typography>GBP to EUR: {exchangeRates.GBP_EUR}</Typography>
-          </div>
-        ) : (
-          <Typography>No data available</Typography>
-        )}
-      </Paper>
-      <Paper style={{ marginTop: '2rem', padding: '1rem' }}>
-        <Typography variant="h6">EURIBOR</Typography>
-        {euribor !== null ? <Typography>{euribor}%</Typography> : <Typography>No data available</Typography>}
+        <FxChart data={exchangeRates}/>
       </Paper>
       <Paper style={{ marginTop: '2rem', padding: '1rem' }}>
         <Typography variant="h6" gutterBottom>Stock Market Data</Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Symbol</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Change (%)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {stockData.map(stock => (
-              <TableRow key={stock.symbol}>
-                <TableCell>{stock.symbol}</TableCell>
-                <TableCell>{stock.price}</TableCell>
-                <TableCell>{stock.change}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <StockChartExample data={stockData}/>
       </Paper>
     </Container>
   );

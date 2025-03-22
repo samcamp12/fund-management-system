@@ -1,9 +1,9 @@
 // src/components/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, Typography } from '@mui/material';
-import ChartComponent from './ChartComponent';
 import FundGrid from './Grids/FundGrid';
 import { api } from '../constants/API';
+import { MetricsChart } from './Charts/MetricsChart';
 
 const Dashboard: React.FC = () => {
   const [totalAUM, setTotalAUM] = useState<number>(0);
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>Fund Performance Over Time</Typography>
-              <ChartComponent url={`${api}/performance-metrics`} />
+              <MetricsChart />
             </CardContent>
           </Card>
         </Grid>
