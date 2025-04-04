@@ -27,6 +27,8 @@ const MarketDataPage: React.FC = () => {
     setLoading(true);
     try {
       const marketData = await getMarketData();
+      // Uncomment the line below to use test data instead of API data
+      // const marketData = testMarketData.sort((a, b) => a.date.localeCompare(b.date));
       marketData.sort((a, b) => a.date.localeCompare(b.date));
       setExchangeRates(marketData.filter(x => x.usdToEur !== "").map(x => {
         return {
