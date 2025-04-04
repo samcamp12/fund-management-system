@@ -30,7 +30,7 @@ export const Navigation: React.FC = () => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -43,7 +43,7 @@ export const Navigation: React.FC = () => {
           >
             Fund Corinth
           </Typography>
-          <Button color="inherit" component={Link} to="/" >Dashboard</Button>
+          <Button color="inherit" component={Link} to="/dashboard" >Dashboard</Button>
           <Button color="inherit" component={Link} to="/investors">Investors</Button>
           <Button color="inherit" component={Link} to="/regulatory">Regulatory</Button>
           <Button color="inherit" component={Link} to="/market-data">Market Data</Button>

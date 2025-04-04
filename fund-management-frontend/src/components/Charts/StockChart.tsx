@@ -14,6 +14,7 @@ const StockChart= ({ data }: { data: StockData[] }) => (
     xAxisTickFormatter={defaultDateFormatter}
     tooltipLabelFormatter={defaultDateFormatter}
     yDomain={[100, 300]}
+    yAxisUnit="$"
   />
 );
 

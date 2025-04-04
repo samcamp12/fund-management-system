@@ -4,6 +4,7 @@ import { Container, Typography, Button, Paper } from '@mui/material';
 import { testMarketData } from '../constants/testData';
 import StockChartExample from './Charts/StockChart';
 import FxChart from './Charts/FxChart';
+import { getMarketData } from '../services/marketDataService';
 
 export interface StockData {
   date: string;
@@ -25,8 +26,8 @@ const MarketDataPage: React.FC = () => {
   const fetchMarketData = async () => {
     setLoading(true);
     try {
-      // const marketData = await getMarketData();
-      const marketData = testMarketData.sort((a, b) => a.date.localeCompare(b.date));
+      const marketData = await getMarketData();
+      marketData.sort((a, b) => a.date.localeCompare(b.date));
       setExchangeRates(marketData.filter(x => x.usdToEur !== "").map(x => {
         return {
           date: x.date,

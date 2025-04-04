@@ -37,6 +37,7 @@ export interface GeneralChartProps<T> {
   margin?: { top: number; right: number; bottom: number; left: number };
   /** Height of the chart (container) */
   height?: number;
+  yAxisUnit?: string;
 }
 
 
@@ -58,6 +59,7 @@ export const ChartComponent = <T extends object>({
   yDomain = [0, 'auto'],
   margin = { top: 20, right: 20, bottom: 20, left: 20 },
   height = 300,
+  yAxisUnit,
 }: GeneralChartProps<T>): JSX.Element => {
   // If no data provided but a URL is available, fetch the data.
   const { rowData, error } = useRowDataFetch<T>(url || '');
@@ -72,7 +74,11 @@ export const ChartComponent = <T extends object>({
       <LineChart data={chartData} margin={margin}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={xKey as string} tickFormatter={xAxisTickFormatter} />
-        <YAxis domain={yDomain} />
+        <YAxis 
+          domain={yDomain}           
+          tickFormatter={(value: number) =>
+            yAxisUnit ? `${yAxisUnit}${value}` : value.toString()
+          }/>
         <Tooltip labelFormatter={tooltipLabelFormatter} />
         <Legend />
         {lines.map((line, index) => (

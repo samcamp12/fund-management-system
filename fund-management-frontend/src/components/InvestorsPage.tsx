@@ -153,6 +153,7 @@ const InvestorsPage: React.FC = () => {
           columnDefs={columnDefs}
           pagination={true}
           paginationPageSize={10}
+          onFirstDataRendered={(params) => params.api.autoSizeAllColumns()}
         />
       </div>
       {/* Dialog for adding/editing an investor */}

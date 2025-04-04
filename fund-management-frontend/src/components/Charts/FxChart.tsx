@@ -11,6 +11,7 @@ const FxChart = ({ data }: { data: ExchangeRate[] }) => (
     xAxisTickFormatter={defaultDateFormatter}
     tooltipLabelFormatter={defaultDateFormatter}
     yDomain={[0.8, 'auto']}
+    yAxisUnit='€'
   />
 );
 
