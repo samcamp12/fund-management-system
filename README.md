@@ -1,6 +1,13 @@
 # fund-management-system
 Cloud-Based Fund Management Platform for Small Hedge Funds
 
+Install method:
+
+under /fund-management-backend folder, run npm install
+under /fund-management-backend folder, run npm run dev, now the backend is running
+under /fund-management-frontend folder, run npm install
+under /fund-management-frontend, run npm start. Then the app should be running
+
 The Cloud-Based Fund Management Platform for Small Hedge Funds project aims to deliver a secure, cloud-based solution for small hedge funds to efficiently manage their investments, investor relations, and regulatory compliance. This platform is designed to meet the unique needs of small funds, providing them with tools that are scalable, cost-effective, and easy to use.
 
 Business Deliverables:
